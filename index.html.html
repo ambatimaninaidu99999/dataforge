@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataForge Academy — Learn Data Engineering & Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050a14;
+  --surface: #0d1526;
+  --surface2: #131f35;
+  --border: #1e2f4a;
+  --accent: #00d4ff;
+  --accent2: #7c3aed;
+  --accent3: #f59e0b;
+  --green: #10b981;
+  --red: #ef4444;
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --text3: #4a5568;
+  --glow: 0 0 40px rgba(0,212,255,0.15);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 3px; }
+
+/* ---- SCREENS ---- */
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; flex-direction: column; }
+
+/* =================== LOGIN SCREEN =================== */
+#loginScreen {
+  background: radial-gradient(ellipse at 20% 50%, rgba(124,58,237,0.2) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(0,212,255,0.15) 0%, transparent 50%),
+              var(--bg);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-card {
+  background: rgba(13,21,38,0.9);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px;
+  width: 100%;
+  max-width: 460px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), var(--glow);
+  animation: fadeUp 0.6s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(30px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.logo-icon {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+
+.logo-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.login-sub {
+  color: var(--text2);
+  margin-bottom: 32px;
+  font-size: 15px;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+  margin-bottom: 8px;
+}
+
+.input-group input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,212,255,0.1);
+}
+
+.btn-primary {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,212,255,0.3);
+}
+
+.divider {
+  text-align: center;
+  color: var(--text3);
+  margin: 20px 0;
+  font-size: 13px;
+  position: relative;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: var(--border);
+}
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+.social-btn {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s;
+  margin-bottom: 10px;
+}
+
+.social-btn:hover { background: var(--border); }
+
+.toggle-auth {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--text2);
+  font-size: 14px;
+}
+
+.toggle-auth a {
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.badges-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.badge {
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: var(--accent);
+}
+
+/* =================== MAIN APP =================== */
+#mainApp { display: none; flex-direction: column; }
+#mainApp.active { display: flex; }
+
+/* NAV */
+.nav {
+  background: rgba(13,21,38,0.95);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  gap: 16px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  flex-shrink: 0;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 4px;
+  margin-left: 24px;
+  overflow-x: auto;
+  flex: 1;
+}
+
+.nav-tab {
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+  transition: all 0.2s;
+  white-space: nowrap;
+  border: none;
+  background: none;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.nav-tab:hover { background: var(--surface2); color: var(--text); }
+.nav-tab.active { background: var(--surface2); color: var(--accent); border: 1px solid rgba(0,212,255,0.2); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.lang-selector {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+}
+
+.xp-pill {
+  background: linear-gradient(90deg, rgba(245,158,11,0.2), rgba(245,158,11,0.1));
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent3);
+}
+
+.avatar {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* CONTENT AREA */
+.content { flex: 1; overflow-y: auto; }
+
+.page { display: none; padding: 32px 24px; max-width: 1300px; margin: 0 auto; }
+.page.active { display: block; }
+
+/* =================== DASHBOARD =================== */
+.welcome-hero {
+  background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(124,58,237,0.1));
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-hero::before {
+  content: '⬡';
+  position: absolute;
+  right: -20px;
+  top: -40px;
+  font-size: 200px;
+  opacity: 0.03;
+  color: var(--accent);
+}
+
+.welcome-hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.welcome-hero h1 span { color: var(--accent); }
+
+.welcome-hero p { color: var(--text2); font-size: 16px; max-width: 600px; }
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.stat-card .val {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.stat-card .lbl { font-size: 12px; color: var(--text2); margin-top: 2px; }
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title .dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.tracks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.track-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.track-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  right: 0; height: 3px;
+  background: var(--track-color, var(--accent));
+  transition: height 0.3s;
+}
+
+.track-card:hover {
+  border-color: var(--track-color, var(--accent));
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.track-card:hover::before { height: 100%; opacity: 0.05; }
+
+.track-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.track-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.track-card p { color: var(--text2); font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
+
+.progress-bar {
+  background: var(--surface2);
+  border-radius: 6px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--track-color, var(--accent));
+  border-radius: 6px;
+  transition: width 1s ease;
+}
+
+.track-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text2);
+}
+
+/* =================== ROADMAP =================== */
+.roadmap-header {
+  background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(124,58,237,0.08));
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 32px;
+}
+
+.role-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.role-tab {
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.role-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+}
+
+.roadmap-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.roadmap-phase {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 0;
+}
+
+.phase-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 50px;
+}
+
+.phase-node {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  flex-shrink: 0;
+  z-index: 1;
+  border: 2px solid;
+}
+
+.phase-connector {
+  width: 2px;
+  flex: 1;
+  min-height: 30px;
+  background: linear-gradient(to bottom, currentColor, transparent);
+  opacity: 0.3;
+}
+
+.phase-content {
+  flex: 1;
+  padding-bottom: 32px;
+}
+
+.phase-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  opacity: 0.7;
+}
+
+.phase-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.skill-tag {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.skill-tag:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,212,255,0.05);
+}
+
+.skill-tag.done {
+  background: rgba(16,185,129,0.1);
+  border-color: rgba(16,185,129,0.3);
+  color: var(--green);
+}
+
+.duration-badge {
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--accent3);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* =================== COURSES =================== */
+.level-filter {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.level-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.level-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.05); }
+.level-btn.beginner.active { border-color: var(--green); color: var(--green); background: rgba(16,185,129,0.05); }
+.level-btn.advanced.active { border-color: var(--accent3); color: var(--accent3); background: rgba(245,158,11,0.05); }
+.level-btn.professional.active { border-color: var(--accent2); color: var(--accent2); background: rgba(124,58,237,0.05); }
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.course-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.course-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0,212,255,0.3);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.course-thumb {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.course-body { padding: 20px; }
+
+.course-level {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.level-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+
+.course-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.course-desc {
+  color: var(--text2);
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.course-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.course-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.enroll-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+  border-radius: 8px;
+  padding: 7px 16px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: opacity 0.2s;
+}
+
+.enroll-btn:hover { opacity: 0.85; }
+
+/* =================== VIDEO PLAYER =================== */
+#videoPage { padding: 0; max-width: none; }
+
+.video-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  height: calc(100vh - 64px);
+}
+
+.video-main {
+  overflow-y: auto;
+  padding: 28px;
+  border-right: 1px solid var(--border);
+}
+
+.video-sidebar {
+  overflow-y: auto;
+  background: var(--surface);
+}
+
+.video-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 20px;
+  transition: color 0.2s;
+}
+
+.video-back:hover { color: var(--accent); }
+
+.video-player-wrap {
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.yt-embed {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-info h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.video-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.video-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.action-btn:hover { border-color: var(--accent); color: var(--accent); }
+.action-btn.primary { background: rgba(0,212,255,0.1); border-color: var(--accent); color: var(--accent); }
+
+.voice-translator {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.voice-translator h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lang-btn {
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lang-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,212,255,0.08);
+}
+
+.notes-area {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.notes-area h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.notes-area textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+/* SIDEBAR CONTENT */
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.lesson-item {
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.lesson-item:hover { background: var(--surface2); }
+.lesson-item.active { background: rgba(0,212,255,0.06); border-left: 2px solid var(--accent); }
+
+.lesson-num {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: var(--surface2);
+  color: var(--text2);
+}
+
+.lesson-num.done {
+  background: rgba(16,185,129,0.15);
+  color: var(--green);
+}
+
+.lesson-num.current {
+  background: rgba(0,212,255,0.15);
+  color: var(--accent);
+}
+
+.lesson-info .lesson-title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.lesson-info .lesson-dur {
+  font-size: 11px;
+  color: var(--text2);
+}
+
+/* =================== AI ASSISTANT =================== */
+.ai-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(0,212,255,0.05));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ai-avatar {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+
+.ai-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.msg {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.msg.bot {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.msg.user {
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.ai-input-row {
+  padding: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+}
+
+.ai-input {
+  flex: 1;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
+}
+
+.ai-input:focus { border-color: var(--accent); }
+
+.ai-send {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: opacity 0.2s;
+}
+
+.ai-send:hover { opacity: 0.85; }
+
+/* =================== QUICK LINKS =================== */
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.quick-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: block;
+  color: var(--text);
+}
+
+.quick-card:hover {
+  border-color: rgba(0,212,255,0.3);
+  transform: translateY(-2px);
+}
+
+.quick-icon { font-size: 24px; margin-bottom: 10px; }
+.quick-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.quick-desc { font-size: 13px; color: var(--text2); }
+
+/* =================== MODAL =================== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 560px;
+  width: 100%;
+  animation: fadeUp 0.3s ease;
+}
+
+.modal h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.modal p { color: var(--text2); font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+
+.modal-close {
+  float: right;
+  background: var(--surface2);
+  border: none;
+  border-radius: 8px;
+  width: 32px; height: 32px;
+  cursor: pointer;
+  color: var(--text2);
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+/* =================== TRANSLATION OVERLAY =================== */
+.translating-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+}
+
+.translating-overlay.show { display: flex; }
+
+.translating-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 48px;
+  text-align: center;
+}
+
+.spin {
+  width: 40px; height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* =================== RESPONSIVE =================== */
+@media (max-width: 900px) {
+  .video-layout { grid-template-columns: 1fr; }
+  .video-sidebar { display: none; }
+  .nav-tabs { display: none; }
+}
+
+@media (max-width: 600px) {
+  .page { padding: 20px 16px; }
+  .welcome-hero { padding: 24px; }
+  .welcome-hero h1 { font-size: 22px; }
+  .login-card { padding: 28px 24px; }
+}
+
+/* =================== ANIMATIONS =================== */
+.fade-in {
+  animation: fadeUp 0.4s ease both;
+}
+
+.stagger > * {
+  animation: fadeUp 0.4s ease both;
+}
+
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger > *:nth-child(6) { animation-delay: 0.3s; }
+.stagger > *:nth-child(7) { animation-delay: 0.35s; }
+.stagger > *:nth-child(8) { animation-delay: 0.4s; }
+
+.pulse { animation: pulse 2s infinite; }
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50% { opacity:0.6; }
+}
+
+/* Typing indicator */
+.typing { display: flex; gap: 4px; padding: 4px 0; }
+.typing span {
+  width: 6px; height: 6px;
+  background: var(--text2);
+  border-radius: 50%;
+  animation: bounce 1s infinite;
+}
+.typing span:nth-child(2) { animation-delay: 0.15s; }
+.typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes bounce {
+  0%,60%,100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+}
+</style>
+</head>
+<body>
+
+<!-- =================== LOGIN =================== -->
+<div id="loginScreen" class="screen active">
+  <div class="login-card">
+    <div class="logo-mark">
+      <div class="logo-icon">⚡</div>
+      <div class="logo-text">DataForge Academy</div>
+    </div>
+    <h2 class="login-title" data-i18n="login_title">Start Your Data Journey</h2>
+    <p class="login-sub" data-i18n="login_sub">Master Data Engineering & Analytics from zero to professional. Free forever.</p>
+
+    <div class="input-group">
+      <label data-i18n="email_label">Email Address</label>
+      <input type="email" id="loginEmail" placeholder="you@example.com" data-i18n-ph="email_ph">
+    </div>
+    <div class="input-group">
+      <label data-i18n="pass_label">Password</label>
+      <input type="password" id="loginPass" placeholder="Create a password" data-i18n-ph="pass_ph">
+    </div>
+
+    <button class="btn-primary" onclick="doLogin()" data-i18n="login_btn">Continue Free →</button>
+
+    <div class="divider" data-i18n="or_divider">or continue with</div>
+
+    <button class="social-btn" onclick="doLogin()">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      <span data-i18n="google_btn">Continue with Google</span>
+    </button>
+
+    <div class="toggle-auth">
+      <span data-i18n="no_account">Already have an account?</span> <a onclick="doLogin()" data-i18n="signin_link">Sign in</a>
+    </div>
+
+    <div class="badges-row">
+      <div class="badge">🌍 5 Languages</div>
+      <div class="badge">📹 500+ Videos</div>
+      <div class="badge">🤖 AI Tutor</div>
+      <div class="badge">🆓 Free Access</div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== MAIN APP =================== -->
+<div id="mainApp">
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">⚡ DataForge</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showPage('dashboard')" data-i18n="nav_home">🏠 Home</button>
+      <button class="nav-tab" onclick="showPage('roadmap')" data-i18n="nav_roadmap">🗺️ Roadmap</button>
+      <button class="nav-tab" onclick="showPage('courses')" data-i18n="nav_courses">📚 Courses</button>
+      <button class="nav-tab" onclick="showPage('practice')" data-i18n="nav_practice">💻 Practice</button>
+      <button class="nav-tab" onclick="showPage('aipage')" data-i18n="nav_ai">🤖 AI Tutor</button>
+      <button class="nav-tab" onclick="showPage('resources')" data-i18n="nav_resources">🔗 Resources</button>
+    </div>
+    <div class="nav-right">
+      <select class="lang-selector" onchange="translatePage(this.value)" id="langSelect">
+        <option value="en">🇺🇸 English</option>
+        <option value="hi">🇮🇳 Hindi</option>
+        <option value="es">🇪🇸 Spanish</option>
+        <option value="zh">🇨🇳 Chinese</option>
+        <option value="ar">🇸🇦 Arabic</option>
+        <option value="pt">🇧🇷 Portuguese</option>
+      </select>
+      <div class="xp-pill">⚡ 340 XP</div>
+      <div class="avatar" id="userAvatar">U</div>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ===== DASHBOARD ===== -->
+    <div id="dashboard" class="page active">
+      <div class="welcome-hero fade-in">
+        <h1 data-i18n="welcome_h">Welcome back, <span id="userName">Learner</span>! 👋</h1>
+        <p data-i18n="welcome_p">You're on a 3-day streak. Keep going — mastery is built one lesson at a time. Today's focus: SQL Window Functions.</p>
+        <div class="stats-row stagger">
+          <div class="stat-card">
+            <div class="val">3</div>
+            <div class="lbl" data-i18n="stat_streak">🔥 Day Streak</div>
+          </div>
+          <div class="stat-card">
+            <div class="val">12</div>
+            <div class="lbl" data-i18n="stat_completed">✅ Lessons Done</div>
+          </div>
+          <div class="stat-card">
+            <div class="val">340</div>
+            <div class="lbl" data-i18n="stat_xp">⚡ XP Earned</div>
+          </div>
+          <div class="stat-card">
+            <div class="val">18%</div>
+            <div class="lbl" data-i18n="stat_progress">📈 Course Progress</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title"><div class="dot"></div><span data-i18n="learning_tracks">Learning Tracks</span></div>
+      <div class="tracks-grid stagger">
+        <div class="track-card" style="--track-color:#10b981" onclick="showPage('courses'); filterLevel('beginner')">
+          <div class="track-icon" style="background:rgba(16,185,129,0.15)">🌱</div>
+          <h3 data-i18n="track1_title">Data Analyst Path</h3>
+          <p data-i18n="track1_desc">SQL, Excel, Python for analysis, Tableau & Power BI. Perfect for absolute beginners.</p>
+          <div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div>
+          <div class="track-meta"><span>24 modules</span><span style="color:#10b981">25% done</span></div>
+        </div>
+        <div class="track-card" style="--track-color:#00d4ff" onclick="showPage('courses'); filterLevel('advanced')">
+          <div class="track-icon" style="background:rgba(0,212,255,0.15)">⚙️</div>
+          <h3 data-i18n="track2_title">Data Engineer Path</h3>
+          <p data-i18n="track2_desc">ETL pipelines, Spark, Kafka, Airflow, cloud platforms AWS/GCP/Azure.</p>
+          <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
+          <div class="track-meta"><span>36 modules</span><span style="color:#00d4ff">10% done</span></div>
+        </div>
+        <div class="track-card" style="--track-color:#7c3aed" onclick="showPage('courses'); filterLevel('professional')">
+          <div class="track-icon" style="background:rgba(124,58,237,0.15)">🏆</div>
+          <h3 data-i18n="track3_title">Professional Mastery</h3>
+          <p data-i18n="track3_desc">System design, real-time streaming, ML pipelines, interview prep & portfolio.</p>
+          <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+          <div class="track-meta"><span>20 modules</span><span style="color:#7c3aed">Not started</span></div>
+        </div>
+      </div>
+
+      <div class="section-title"><div class="dot"></div><span data-i18n="continue_title">Continue Learning</span></div>
+      <div class="quick-grid stagger">
+        <div class="quick-card" onclick="openVideo('sql_basics','SQL Window Functions','sql-window-functions','https://www.youtube.com/embed/H6OTMoXjNiM')">
+          <div class="quick-icon">🎯</div>
+          <div class="quick-title">SQL Window Functions</div>
+          <div class="quick-desc">Beginner • 18 min • 65% complete</div>
+        </div>
+        <div class="quick-card" onclick="openVideo('python1','Python for Data Analysis','python-data-analysis','https://www.youtube.com/embed/r-uOLxNrNk8')">
+          <div class="quick-icon">🐍</div>
+          <div class="quick-title">Python Pandas Fundamentals</div>
+          <div class="quick-desc">Beginner • 24 min • Next up</div>
+        </div>
+        <div class="quick-card" onclick="showPage('roadmap')">
+          <div class="quick-icon">🗺️</div>
+          <div class="quick-title">View Full Roadmap</div>
+          <div class="quick-desc">See your complete learning path</div>
+        </div>
+        <div class="quick-card" onclick="showPage('aipage')">
+          <div class="quick-icon">🤖</div>
+          <div class="quick-title">Ask AI Tutor</div>
+          <div class="quick-desc">Get instant answers to your questions</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ROADMAP ===== -->
+    <div id="roadmap" class="page">
+      <div class="roadmap-header fade-in">
+        <div class="section-title" style="margin-bottom:12px"><div class="dot"></div><span data-i18n="roadmap_title">Complete Learning Roadmap</span></div>
+        <p style="color:var(--text2);font-size:14px;margin-bottom:16px" data-i18n="roadmap_sub">Choose your career track. Each phase builds on the previous one. Click any skill to start learning.</p>
+        <div class="role-tabs">
+          <button class="role-tab active" onclick="switchRoleTab(this,'analyst')" data-i18n="tab_analyst">📊 Data Analyst</button>
+          <button class="role-tab" onclick="switchRoleTab(this,'engineer')" data-i18n="tab_engineer">⚙️ Data Engineer</button>
+        </div>
+      </div>
+
+      <div id="roadmapContent" class="roadmap-container"></div>
+    </div>
+
+    <!-- ===== COURSES ===== -->
+    <div id="courses" class="page">
+      <div class="section-title fade-in"><div class="dot"></div><span data-i18n="courses_title">All Courses</span></div>
+      <div class="level-filter">
+        <button class="level-btn active" onclick="filterLevel('all')" data-i18n="all_levels">All Levels</button>
+        <button class="level-btn beginner" onclick="filterLevel('beginner')" data-i18n="beginner">🌱 Beginner</button>
+        <button class="level-btn advanced" onclick="filterLevel('advanced')" data-i18n="advanced">⚡ Advanced</button>
+        <button class="level-btn professional" onclick="filterLevel('professional')" data-i18n="professional">🏆 Professional</button>
+      </div>
+      <div class="courses-grid stagger" id="coursesGrid"></div>
+    </div>
+
+    <!-- ===== VIDEO PAGE ===== -->
+    <div id="videoPage" class="page">
+      <div class="video-layout">
+        <div class="video-main">
+          <div class="video-back" onclick="showPage('courses')">← <span data-i18n="back_courses">Back to Courses</span></div>
+          <div class="video-player-wrap">
+            <iframe class="yt-embed" id="ytPlayer" src="" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+          </div>
+          <div class="video-info">
+            <h2 id="videoTitle">Loading...</h2>
+            <div class="video-meta-row">
+              <span style="color:var(--text2);font-size:13px" id="videoMeta">⏱ 24 min • 📊 Beginner</span>
+            </div>
+            <div class="video-actions">
+              <button class="action-btn primary" onclick="markDone()">✅ <span data-i18n="mark_done">Mark Complete</span></button>
+              <button class="action-btn" onclick="toggleNotes()">📝 <span data-i18n="notes_btn">Notes</span></button>
+              <button class="action-btn" onclick="downloadResources()">⬇️ <span data-i18n="resources_btn">Resources</span></button>
+              <button class="action-btn" onclick="showPage('aipage')">🤖 <span data-i18n="ask_ai">Ask AI</span></button>
+            </div>
+
+            <div class="voice-translator">
+              <h3>🌍 <span data-i18n="voice_trans">Voice Translator</span></h3>
+              <p style="color:var(--text2);font-size:13px;margin-bottom:12px" data-i18n="voice_sub">Select language to hear AI narration in your language</p>
+              <div class="lang-btns" id="voiceLangBtns">
+                <button class="lang-btn active" onclick="selectVoiceLang(this,'en')">🇺🇸 English</button>
+                <button class="lang-btn" onclick="selectVoiceLang(this,'hi')">🇮🇳 हिंदी</button>
+                <button class="lang-btn" onclick="selectVoiceLang(this,'es')">🇪🇸 Español</button>
+                <button class="lang-btn" onclick="selectVoiceLang(this,'zh')">🇨🇳 中文</button>
+                <button class="lang-btn" onclick="selectVoiceLang(this,'ar')">🇸🇦 العربية</button>
+                <button class="lang-btn" onclick="selectVoiceLang(this,'pt')">🇧🇷 Português</button>
+              </div>
+              <div id="voiceStatus" style="margin-top:12px;font-size:13px;color:var(--accent);display:none">
+                🔊 <span id="voiceStatusText">Translating audio...</span>
+              </div>
+            </div>
+
+            <div class="notes-area" id="notesArea" style="display:none">
+              <h3>📝 <span data-i18n="my_notes">My Notes</span></h3>
+              <textarea placeholder="Write your notes here..." id="notesText"></textarea>
+              <button class="action-btn" style="margin-top:8px" onclick="saveNotes()">💾 Save Notes</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-sidebar">
+          <div class="sidebar-header" data-i18n="course_content">Course Content</div>
+          <div id="lessonList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PRACTICE ===== -->
+    <div id="practice" class="page">
+      <div class="section-title fade-in"><div class="dot"></div><span data-i18n="practice_title">Hands-on Practice</span></div>
+      <div class="quick-grid stagger">
+        <div class="quick-card" onclick="openModal('sql_playground')">
+          <div class="quick-icon">🗄️</div>
+          <div class="quick-title" data-i18n="sql_playground">SQL Playground</div>
+          <div class="quick-desc" data-i18n="sql_playground_desc">Practice SQL queries on real datasets. 50+ challenges from beginner to expert.</div>
+        </div>
+        <div class="quick-card" onclick="openModal('python_nb')">
+          <div class="quick-icon">🐍</div>
+          <div class="quick-title" data-i18n="python_nb">Python Notebooks</div>
+          <div class="quick-desc" data-i18n="python_nb_desc">Interactive Jupyter-like environment. Practice Pandas, NumPy, Matplotlib.</div>
+        </div>
+        <div class="quick-card" onclick="openModal('etl_builder')">
+          <div class="quick-icon">🔄</div>
+          <div class="quick-title" data-i18n="etl_builder">ETL Pipeline Builder</div>
+          <div class="quick-desc" data-i18n="etl_builder_desc">Drag-and-drop ETL flow builder. Design and test data pipelines visually.</div>
+        </div>
+        <div class="quick-card" onclick="openModal('interview_prep')">
+          <div class="quick-icon">🎯</div>
+          <div class="quick-title" data-i18n="interview_prep">Interview Prep</div>
+          <div class="quick-desc" data-i18n="interview_prep_desc">200+ real interview questions from Google, Amazon, Meta, Netflix & more.</div>
+        </div>
+        <div class="quick-card" onclick="openModal('quizzes')">
+          <div class="quick-icon">✅</div>
+          <div class="quick-title" data-i18n="quizzes">Quizzes & Assessments</div>
+          <div class="quick-desc" data-i18n="quizzes_desc">Test your knowledge after each module. Earn XP and unlock next levels.</div>
+        </div>
+        <div class="quick-card" onclick="openModal('capstone')">
+          <div class="quick-icon">🏆</div>
+          <div class="quick-title" data-i18n="capstone">Capstone Projects</div>
+          <div class="quick-desc" data-i18n="capstone_desc">Build real-world projects for your portfolio. Peer review + AI feedback.</div>
+        </div>
+      </div>
+
+      <div class="section-title"><div class="dot"></div><span data-i18n="challenge_title">Daily Challenge</span></div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;" class="fade-in">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px" data-i18n="daily_q">Today's SQL Challenge</div>
+            <div style="color:var(--text2);font-size:13px" data-i18n="daily_diff">Difficulty: Intermediate • +50 XP</div>
+          </div>
+          <div class="duration-badge">⏰ 15 min</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:10px;padding:16px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:16px;line-height:1.7">
+          -- Find the top 3 customers by revenue per month<br>
+          -- Use window functions and CTEs<br>
+          -- Table: orders (customer_id, order_date, amount)<br>
+          <br>
+          SELECT ...
+        </div>
+        <button class="enroll-btn" onclick="openModal('sql_playground')" data-i18n="solve_btn">Solve Now →</button>
+      </div>
+    </div>
+
+    <!-- ===== AI TUTOR ===== -->
+    <div id="aipage" class="page">
+      <div class="section-title fade-in"><div class="dot"></div><span data-i18n="ai_title">AI Tutor — DataForge Assistant</span></div>
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:24px">
+        <div class="ai-panel fade-in">
+          <div class="ai-header">
+            <div class="ai-avatar">🤖</div>
+            <div>
+              <div style="font-family:'Syne',sans-serif;font-weight:700" data-i18n="ai_name">Forge AI</div>
+              <div style="font-size:12px;color:var(--green)">● <span data-i18n="ai_online">Online — Ready to help</span></div>
+            </div>
+          </div>
+          <div class="ai-messages" id="aiMessages">
+            <div class="msg bot" data-i18n="ai_greeting">👋 Hi! I'm Forge AI, your personal Data Engineering & Analytics tutor. Ask me anything — from "What is SQL?" to "Explain Kafka architecture". I speak all 5 languages too! 🌍</div>
+          </div>
+          <div class="ai-input-row">
+            <input class="ai-input" id="aiInput" placeholder="Ask anything about data engineering..." data-i18n-ph="ai_ph" onkeydown="if(event.key==='Enter')sendAI()">
+            <button class="ai-send" onclick="sendAI()">→</button>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:4px" data-i18n="suggested_q">💡 Suggested Questions</div>
+          <div id="suggestedQs"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RESOURCES ===== -->
+    <div id="resources" class="page">
+      <div class="section-title fade-in"><div class="dot"></div><span data-i18n="resources_title">Learning Resources & Tools</span></div>
+      <div class="quick-grid stagger">
+        <a class="quick-card" href="https://leetcode.com/problemset/database/" target="_blank">
+          <div class="quick-icon">💪</div>
+          <div class="quick-title">LeetCode SQL</div>
+          <div class="quick-desc">Practice SQL with real interview problems</div>
+        </a>
+        <a class="quick-card" href="https://mode.com/sql-tutorial/" target="_blank">
+          <div class="quick-icon">📘</div>
+          <div class="quick-title">Mode SQL Tutorial</div>
+          <div class="quick-desc">Interactive SQL tutorial for data analysts</div>
+        </a>
+        <a class="quick-card" href="https://www.kaggle.com/learn" target="_blank">
+          <div class="quick-icon">🐼</div>
+          <div class="quick-title">Kaggle Learn</div>
+          <div class="quick-desc">Free Python, ML & data courses with certificates</div>
+        </a>
+        <a class="quick-card" href="https://docs.databricks.com" target="_blank">
+          <div class="quick-icon">🔥</div>
+          <div class="quick-title">Databricks Docs</div>
+          <div class="quick-desc">Spark & Databricks official documentation</div>
+        </a>
+        <a class="quick-card" href="https://airflow.apache.org/docs/" target="_blank">
+          <div class="quick-icon">🌬️</div>
+          <div class="quick-title">Apache Airflow</div>
+          <div class="quick-desc">Workflow orchestration tool documentation</div>
+        </a>
+        <a class="quick-card" href="https://dbtlabs.com" target="_blank">
+          <div class="quick-icon">🧱</div>
+          <div class="quick-title">dbt Learn</div>
+          <div class="quick-desc">Data transformation best practices</div>
+        </a>
+        <a class="quick-card" href="https://roadmap.sh/data-engineer" target="_blank">
+          <div class="quick-icon">🗺️</div>
+          <div class="quick-title">roadmap.sh</div>
+          <div class="quick-desc">Community roadmaps for tech roles</div>
+        </a>
+        <a class="quick-card" href="https://www.datacamp.com" target="_blank">
+          <div class="quick-icon">🎓</div>
+          <div class="quick-title">DataCamp</div>
+          <div class="quick-desc">Premium data courses & projects</div>
+        </a>
+        <div class="quick-card" onclick="openModal('cheatsheets')">
+          <div class="quick-icon">📄</div>
+          <div class="quick-title" data-i18n="cheatsheets">Cheat Sheets</div>
+          <div class="quick-desc" data-i18n="cheatsheets_desc">SQL, Python, Spark, Kafka quick reference cards</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- =================== MODAL =================== -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2 id="modalTitle">Feature</h2>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- =================== TRANSLATE OVERLAY =================== -->
+<div class="translating-overlay" id="transOverlay">
+  <div class="translating-card">
+    <div class="spin"></div>
+    <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:6px">Translating Page...</div>
+    <div style="color:var(--text2);font-size:13px" id="transLangName">Switching language</div>
+  </div>
+</div>
+
+<script>
+// =================== DATA ===================
+
+const COURSES = [
+  // BEGINNER
+  { id:'sql1', level:'beginner', title:'SQL for Beginners', desc:'Learn SELECT, WHERE, JOIN, GROUP BY from scratch. No experience needed.', icon:'🗄️', color:'#10b981', bg:'rgba(16,185,129,0.1)', duration:'6h', lessons:12, yt:'https://www.youtube.com/embed/HXV3zeQKqGY', topic:'SQL Fundamentals' },
+  { id:'excel1', level:'beginner', title:'Excel for Data Analysis', desc:'Pivot tables, VLOOKUP, charts, and data cleaning in Microsoft Excel.', icon:'📊', color:'#10b981', bg:'rgba(16,185,129,0.1)', duration:'4h', lessons:8, yt:'https://www.youtube.com/embed/Vl0H-qTclOg', topic:'Excel Basics' },
+  { id:'py1', level:'beginner', title:'Python Fundamentals', desc:'Variables, loops, functions, and libraries. Your first step in programming.', icon:'🐍', color:'#10b981', bg:'rgba(16,185,129,0.1)', duration:'8h', lessons:16, yt:'https://www.youtube.com/embed/rfscVS0vtbw', topic:'Python Basics' },
+  { id:'pandas1', level:'beginner', title:'Pandas for Data Analysis', desc:'Load, clean, transform and visualize data with Python Pandas library.', icon:'🐼', color:'#10b981', bg:'rgba(16,185,129,0.1)', duration:'5h', lessons:10, yt:'https://www.youtube.com/embed/vmEHCJofslg', topic:'Pandas & NumPy' },
+  { id:'viz1', level:'beginner', title:'Data Visualization Basics', desc:'Create stunning charts with Matplotlib, Seaborn & Tableau Public.', icon:'📈', color:'#10b981', bg:'rgba(16,185,129,0.1)', duration:'5h', lessons:10, yt:'https://www.youtube.com/embed/a9UrKTVEeZA', topic:'Visualization' },
+  { id:'stats1', level:'beginner', title:'Statistics for Data Analysis', desc:'Mean, median, distributions, hypothesis testing explained visually.', icon:'📐', color:'#10b981', bg:'rgba(16,185,129,0.1)', duration:'6h', lessons:12, yt:'https://www.youtube.com/embed/SzZ6GpcfoQY', topic:'Statistics' },
+  // ADVANCED
+  { id:'sql2', level:'advanced', title:'Advanced SQL & Query Optimization', desc:'Window functions, CTEs, subqueries, indexing, and performance tuning.', icon:'⚡', color:'#00d4ff', bg:'rgba(0,212,255,0.1)', duration:'8h', lessons:14, yt:'https://www.youtube.com/embed/H6OTMoXjNiM', topic:'Advanced SQL' },
+  { id:'etl1', level:'advanced', title:'ETL Pipeline Development', desc:'Build Extract-Transform-Load pipelines with Python, Airflow & dbt.', icon:'🔄', color:'#00d4ff', bg:'rgba(0,212,255,0.1)', duration:'10h', lessons:18, yt:'https://www.youtube.com/embed/M3m8VLXPYFE', topic:'ETL Pipelines' },
+  { id:'spark1', level:'advanced', title:'Apache Spark Fundamentals', desc:'Distributed data processing with PySpark. DataFrames, RDDs, Spark SQL.', icon:'🔥', color:'#00d4ff', bg:'rgba(0,212,255,0.1)', duration:'12h', lessons:20, yt:'https://www.youtube.com/embed/F8pyaR4uQ2g', topic:'Apache Spark' },
+  { id:'dw1', level:'advanced', title:'Data Warehousing', desc:'Star/snowflake schemas, Redshift, BigQuery, Snowflake architecture.', icon:'🏛️', color:'#00d4ff', bg:'rgba(0,212,255,0.1)', duration:'9h', lessons:16, yt:'https://www.youtube.com/embed/AHR_JoHNsx4', topic:'Data Warehouses' },
+  { id:'cloud1', level:'advanced', title:'Cloud Platforms: AWS & GCP', desc:'S3, Glue, Lambda, BigQuery, Dataflow — cloud data engineering essentials.', icon:'☁️', color:'#00d4ff', bg:'rgba(0,212,255,0.1)', duration:'11h', lessons:18, yt:'https://www.youtube.com/embed/a9__D53WsMs', topic:'Cloud Platforms' },
+  { id:'kafka1', level:'advanced', title:'Apache Kafka: Stream Processing', desc:'Real-time data streaming, producers, consumers, topics, and Kafka Connect.', icon:'📡', color:'#00d4ff', bg:'rgba(0,212,255,0.1)', duration:'10h', lessons:16, yt:'https://www.youtube.com/embed/Ch5VhJzaoaI', topic:'Kafka Streaming' },
+  // PROFESSIONAL
+  { id:'arch1', level:'professional', title:'Data Architecture & System Design', desc:'Design end-to-end data systems. Lambda, Kappa, Lakehouse architectures.', icon:'🏗️', color:'#7c3aed', bg:'rgba(124,58,237,0.1)', duration:'14h', lessons:22, yt:'https://www.youtube.com/embed/pklpCOmO3K4', topic:'Architecture' },
+  { id:'mlpipe1', level:'professional', title:'ML Pipelines & Feature Stores', desc:'Build and deploy machine learning pipelines. Feature engineering at scale.', icon:'🧠', color:'#7c3aed', bg:'rgba(124,58,237,0.1)', duration:'12h', lessons:18, yt:'https://www.youtube.com/embed/IVgtBGMBfaE', topic:'ML Engineering' },
+  { id:'dbt1', level:'professional', title:'dbt Advanced Patterns', desc:'Data transformation at scale: macros, testing, documentation, CI/CD.', icon:'🧱', color:'#7c3aed', bg:'rgba(124,58,237,0.1)', duration:'8h', lessons:14, yt:'https://www.youtube.com/embed/5rNquRnNb4E', topic:'dbt Framework' },
+  { id:'interview1', level:'professional', title:'Interview Mastery', desc:'FAANG-level DE interview prep. System design, coding, behavioral rounds.', icon:'🎯', color:'#7c3aed', bg:'rgba(124,58,237,0.1)', duration:'10h', lessons:16, yt:'https://www.youtube.com/embed/bBr_gsv3J8E', topic:'Career Prep' },
+];
+
+const LESSONS = [
+  { title:'Introduction & Setup', dur:'12 min', done:true },
+  { title:'Core Concepts Deep Dive', dur:'24 min', done:true },
+  { title:'Hands-on Practice', dur:'18 min', done:false, current:true },
+  { title:'Real World Examples', dur:'22 min', done:false },
+  { title:'Common Patterns', dur:'16 min', done:false },
+  { title:'Advanced Techniques', dur:'28 min', done:false },
+  { title:'Performance & Optimization', dur:'20 min', done:false },
+  { title:'Project Walkthrough', dur:'35 min', done:false },
+  { title:'Quiz & Assessment', dur:'15 min', done:false },
+  { title:'Next Steps & Resources', dur:'10 min', done:false },
+];
+
+const ROADMAP_ANALYST = [
+  { phase:'Phase 1', title:'Foundations', color:'#10b981', icon:'🌱', weeks:'2-4 weeks', skills:['Excel Basics','Data Cleaning','Pivot Tables','Basic Statistics','Google Sheets','Data Types'] },
+  { phase:'Phase 2', title:'SQL Mastery', color:'#06b6d4', icon:'🗄️', weeks:'3-5 weeks', skills:['SELECT & WHERE','JOINs','GROUP BY','Subqueries','Window Functions','CTEs','Query Optimization'] },
+  { phase:'Phase 3', title:'Python for Analysis', color:'#3b82f6', icon:'🐍', weeks:'4-6 weeks', skills:['Python Basics','NumPy','Pandas','Data Cleaning','EDA','Matplotlib','Seaborn','Jupyter'] },
+  { phase:'Phase 4', title:'Visualization & BI', color:'#8b5cf6', icon:'📊', weeks:'3-4 weeks', skills:['Tableau','Power BI','Looker','Chart Design','Dashboard UX','Storytelling with Data'] },
+  { phase:'Phase 5', title:'Statistics & Analytics', color:'#ec4899', icon:'📐', weeks:'4-5 weeks', skills:['Descriptive Stats','Hypothesis Testing','A/B Testing','Regression','Cohort Analysis','Funnel Analysis'] },
+  { phase:'Phase 6', title:'Portfolio & Job Ready', color:'#f59e0b', icon:'🏆', weeks:'2-3 weeks', skills:['GitHub Portfolio','Case Studies','Resume','LinkedIn','SQL Mock Interviews','Analyst Projects'] },
+];
+
+const ROADMAP_ENGINEER = [
+  { phase:'Phase 1', title:'Programming & SQL Foundation', color:'#10b981', icon:'💻', weeks:'3-4 weeks', skills:['Python Intermediate','SQL Advanced','Bash/CLI','Git & GitHub','Data Structures','Algorithms Basics'] },
+  { phase:'Phase 2', title:'Data Storage & Warehousing', color:'#06b6d4', icon:'🏛️', weeks:'3-5 weeks', skills:['Relational DBs','PostgreSQL','Data Warehouses','Star Schema','Snowflake','BigQuery','Redshift'] },
+  { phase:'Phase 3', title:'ETL & Data Pipelines', color:'#3b82f6', icon:'🔄', weeks:'4-6 weeks', skills:['ETL Concepts','Apache Airflow','dbt','Python ETL','Data Validation','Pipeline Monitoring','Great Expectations'] },
+  { phase:'Phase 4', title:'Big Data & Distributed Processing', color:'#8b5cf6', icon:'🔥', weeks:'5-7 weeks', skills:['Hadoop Ecosystem','Apache Spark','PySpark','HDFS','Hive','Databricks','Spark Streaming'] },
+  { phase:'Phase 5', title:'Cloud & Infrastructure', color:'#ec4899', icon:'☁️', weeks:'4-6 weeks', skills:['AWS S3/Glue/Lambda','GCP Dataflow','Azure Data Factory','Docker','Kubernetes Basics','Terraform','CI/CD'] },
+  { phase:'Phase 6', title:'Streaming & Real-Time', color:'#f59e0b', icon:'📡', weeks:'3-5 weeks', skills:['Apache Kafka','Kafka Streams','Flink','Redis','Event-Driven Design','CDC','Debezium'] },
+  { phase:'Phase 7', title:'Architecture & Professional', color:'#ef4444', icon:'🏗️', weeks:'4-6 weeks', skills:['System Design','Data Mesh','Data Lakehouse','Delta Lake','ML Pipelines','DataOps','Interview Prep'] },
+];
+
+const SUGGESTED_QUESTIONS = [
+  'What is the difference between a Data Analyst and Data Engineer?',
+  'Explain ETL vs ELT with examples',
+  'What is Apache Kafka used for?',
+  'How do I learn SQL from scratch?',
+  'What cloud platform should I learn first?',
+  'Explain star schema vs snowflake schema',
+  'What skills do I need for a data engineering job?',
+  'What is Apache Spark and when to use it?',
+];
+
+const TRANSLATIONS = {
+  en: { login_title:'Start Your Data Journey', login_sub:'Master Data Engineering & Analytics from zero to professional. Free forever.', nav_home:'🏠 Home', nav_roadmap:'🗺️ Roadmap', nav_courses:'📚 Courses', nav_practice:'💻 Practice', nav_ai:'🤖 AI Tutor', nav_resources:'🔗 Resources', welcome_h:'Welcome back, {name}! 👋', welcome_p:"You're on a 3-day streak. Keep going — mastery is built one lesson at a time.", stat_streak:'🔥 Day Streak', stat_completed:'✅ Lessons Done', stat_xp:'⚡ XP Earned', stat_progress:'📈 Course Progress', ai_greeting:"👋 Hi! I'm Forge AI, your personal Data Engineering & Analytics tutor. Ask me anything!" },
+  hi: { login_title:'अपनी डेटा यात्रा शुरू करें', login_sub:'डेटा इंजीनियरिंग और एनालिटिक्स में शून्य से पेशेवर बनें। हमेशा के लिए मुफ्त।', nav_home:'🏠 होम', nav_roadmap:'🗺️ रोडमैप', nav_courses:'📚 कोर्सेस', nav_practice:'💻 अभ्यास', nav_ai:'🤖 AI ट्यूटर', nav_resources:'🔗 संसाधन', welcome_h:'वापस स्वागत है, {name}! 👋', welcome_p:'आप 3 दिन की स्ट्रीक पर हैं। जारी रखें — महारत एक-एक पाठ से बनती है।', stat_streak:'🔥 दिन की स्ट्रीक', stat_completed:'✅ पाठ पूरे', stat_xp:'⚡ XP कमाए', stat_progress:'📈 कोर्स प्रगति', ai_greeting:'👋 नमस्ते! मैं Forge AI हूँ, आपका व्यक्तिगत डेटा इंजीनियरिंग ट्यूटर। कुछ भी पूछें!' },
+  es: { login_title:'Comienza tu viaje en datos', login_sub:'Domina Data Engineering y Analytics de cero a profesional. Gratis para siempre.', nav_home:'🏠 Inicio', nav_roadmap:'🗺️ Hoja de ruta', nav_courses:'📚 Cursos', nav_practice:'💻 Práctica', nav_ai:'🤖 Tutor IA', nav_resources:'🔗 Recursos', welcome_h:'¡Bienvenido de vuelta, {name}! 👋', welcome_p:'Llevas 3 días seguidos. Sigue adelante — el dominio se construye lección a lección.', stat_streak:'🔥 Racha de días', stat_completed:'✅ Lecciones hechas', stat_xp:'⚡ XP ganados', stat_progress:'📈 Progreso del curso', ai_greeting:'👋 ¡Hola! Soy Forge AI, tu tutor personal de Data Engineering. ¡Pregúntame lo que sea!' },
+  zh: { login_title:'开始你的数据之旅', login_sub:'从零开始掌握数据工程和分析。永久免费。', nav_home:'🏠 首页', nav_roadmap:'🗺️ 路线图', nav_courses:'📚 课程', nav_practice:'💻 练习', nav_ai:'🤖 AI导师', nav_resources:'🔗 资源', welcome_h:'欢迎回来，{name}！👋', welcome_p:'你已经连续学习3天了。继续加油——精通是一课一课积累起来的。', stat_streak:'🔥 连续天数', stat_completed:'✅ 完成课程', stat_xp:'⚡ 获得经验', stat_progress:'📈 课程进度', ai_greeting:'👋 你好！我是Forge AI，你的数据工程个人导师。随时向我提问！' },
+  ar: { login_title:'ابدأ رحلتك في البيانات', login_sub:'أتقن هندسة البيانات والتحليلات من الصفر إلى الاحتراف. مجاني للأبد.', nav_home:'🏠 الرئيسية', nav_roadmap:'🗺️ خارطة الطريق', nav_courses:'📚 الدورات', nav_practice:'💻 التدريب', nav_ai:'🤖 مدرس ذكاء', nav_resources:'🔗 الموارد', welcome_h:'مرحباً بعودتك، {name}! 👋', welcome_p:'أنت في سلسلة 3 أيام. استمر — يُبنى الإتقان درساً تلو الآخر.', stat_streak:'🔥 سلسلة الأيام', stat_completed:'✅ الدروس المنجزة', stat_xp:'⚡ نقاط XP', stat_progress:'📈 تقدم الدورة', ai_greeting:'👋 مرحباً! أنا Forge AI، مدرسك الشخصي لهندسة البيانات. اسألني أي شيء!' },
+  pt: { login_title:'Comece sua jornada de dados', login_sub:'Domine Data Engineering e Analytics do zero ao profissional. Gratuito para sempre.', nav_home:'🏠 Início', nav_roadmap:'🗺️ Roteiro', nav_courses:'📚 Cursos', nav_practice:'💻 Prática', nav_ai:'🤖 Tutor IA', nav_resources:'🔗 Recursos', welcome_h:'Bem-vindo de volta, {name}! 👋', welcome_p:'Você está em uma sequência de 3 dias. Continue — o domínio é construído uma aula de cada vez.', stat_streak:'🔥 Sequência de dias', stat_completed:'✅ Aulas concluídas', stat_xp:'⚡ XP ganho', stat_progress:'📈 Progresso do curso', ai_greeting:'👋 Olá! Sou o Forge AI, seu tutor pessoal de Engenharia de Dados. Pergunte-me qualquer coisa!' },
+};
+
+const AI_RESPONSES = {
+  'data analyst': 'A **Data Analyst** turns raw data into insights using SQL, Excel, Python, and BI tools like Tableau. They focus on answering business questions: "Why did sales drop?" or "Which product performs best?". Great entry point into data careers!',
+  'data engineer': 'A **Data Engineer** builds the infrastructure that makes data analysis possible. They create ETL pipelines, data warehouses, and streaming systems. Think of them as the plumbers who ensure data flows reliably from source to destination.',
+  'sql': 'SQL (Structured Query Language) is the most essential skill for both analysts and engineers. Start with SELECT → WHERE → GROUP BY → JOINs → Window Functions. I recommend the SQL Beginners course in your courses tab! 🗄️',
+  'kafka': 'Apache Kafka is a distributed event streaming platform. It handles millions of messages per second in real-time. Use cases: activity tracking, metrics, log aggregation, stream processing. Key concepts: Topics, Producers, Consumers, Partitions, Brokers.',
+  'spark': 'Apache Spark is the go-to tool for processing massive datasets. It\'s 100x faster than Hadoop MapReduce. Key concepts: RDDs, DataFrames, Spark SQL, PySpark. Start with the Spark Fundamentals course in the Advanced section!',
+  'etl': 'ETL stands for Extract, Transform, Load. It\'s how data moves from sources (databases, APIs, files) to a destination (data warehouse). Modern approach is ELT — load raw data first, transform later using dbt. Airflow orchestrates the whole process.',
+  'python': 'Python is essential for data work. Start with: basics (variables, loops, functions) → Pandas for data manipulation → Matplotlib/Seaborn for visualization → NumPy for numerical computing. Check out the Python Fundamentals course!',
+  'cloud': 'The top 3 cloud platforms for data engineering: **AWS** (most jobs, S3+Glue+Redshift), **GCP** (BigQuery is amazing for analytics), **Azure** (popular in enterprises). Start with one — AWS is recommended for most beginners.',
+  'star schema': 'A star schema is a data warehouse design with a central fact table connected to dimension tables. Like a star shape! Fact table: sales. Dimensions: date, customer, product. Snowflake schema extends this with normalized dimensions.',
+  'beginner': 'Welcome! Here\'s your beginner path: 1) Learn SQL basics (2-3 weeks) 2) Excel/Google Sheets 3) Python fundamentals 4) Pandas for data analysis 5) Tableau for visualization. Start with the "Data Analyst Path" track on the Home page!',
+  'default': 'Great question! I recommend exploring the relevant course in the 📚 Courses section or checking the 🗺️ Roadmap to see where this topic fits in your learning journey. Would you like me to explain any specific concept in more detail?'
+};
+
+let currentLang = 'en';
+let currentUser = 'Learner';
+let currentVideoData = null;
+let notesVisible = false;
+let currentRole = 'analyst';
+
+// =================== INIT ===================
+function init() {
+  renderCourses('all');
+  renderRoadmap('analyst');
+  renderSuggestedQuestions();
+}
+
+// =================== LOGIN ===================
+function doLogin() {
+  const email = document.getElementById('loginEmail').value || 'learner@dataforge.com';
+  const name = email.split('@')[0].replace(/[^a-zA-Z]/g, '') || 'Learner';
+  currentUser = name.charAt(0).toUpperCase() + name.slice(1);
+  document.getElementById('userName').textContent = currentUser;
+  document.getElementById('userAvatar').textContent = currentUser.charAt(0).toUpperCase();
+  document.getElementById('loginScreen').classList.remove('active');
+  document.getElementById('mainApp').style.display = 'flex';
+  document.getElementById('mainApp').style.flexDirection = 'column';
+  showPage('dashboard');
+  init();
+}
+
+// Allow pressing Enter on login
+document.addEventListener('keydown', e => {
+  if(e.key === 'Enter' && document.getElementById('loginScreen').classList.contains('active')) doLogin();
+});
+
+// =================== NAVIGATION ===================
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  const page = document.getElementById(id);
+  if(page) { page.classList.add('active'); page.scrollTop = 0; }
+  const tabMap = { dashboard:'nav_home', roadmap:'nav_roadmap', courses:'nav_courses', practice:'nav_practice', aipage:'nav_ai', resources:'nav_resources' };
+  if(tabMap[id]) {
+    document.querySelectorAll('.nav-tab').forEach(t => {
+      if(t.getAttribute('data-i18n') === tabMap[id]) t.classList.add('active');
+    });
+  }
+}
+
+// =================== COURSES ===================
+function renderCourses(level) {
+  const grid = document.getElementById('coursesGrid');
+  const filtered = level === 'all' ? COURSES : COURSES.filter(c => c.level === level);
+  grid.innerHTML = filtered.map(c => `
+    <div class="course-card" onclick="openVideo('${c.id}','${c.title}','${c.topic}','${c.yt}')">
+      <div class="course-thumb" style="background:${c.bg}">
+        <span style="font-size:56px">${c.icon}</span>
+      </div>
+      <div class="course-body">
+        <div class="course-level" style="color:${c.color}">
+          <div class="level-dot" style="background:${c.color}"></div>
+          ${c.level.charAt(0).toUpperCase()+c.level.slice(1)}
+        </div>
+        <div class="course-title">${c.title}</div>
+        <div class="course-desc">${c.desc}</div>
+        <div class="course-footer">
+          <div class="course-meta">
+            <span>⏱ ${c.duration}</span>
+            <span>📚 ${c.lessons} lessons</span>
+          </div>
+          <button class="enroll-btn">Start →</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterLevel(level) {
+  document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+  const map = { all:0, beginner:1, advanced:2, professional:3 };
+  const btns = document.querySelectorAll('.level-btn');
+  if(btns[map[level]]) btns[map[level]].classList.add('active');
+  renderCourses(level);
+  showPage('courses');
+}
+
+// =================== VIDEO ===================
+function openVideo(id, title, topic, ytUrl) {
+  currentVideoData = { id, title, topic, ytUrl };
+  document.getElementById('ytPlayer').src = ytUrl + '?autoplay=0&rel=0&modestbranding=1';
+  document.getElementById('videoTitle').textContent = title;
+  document.getElementById('videoMeta').textContent = `⏱ ${Math.floor(Math.random()*30+15)} min • 📊 ${topic}`;
+  renderLessons(title);
+  showPage('videoPage');
+}
+
+function renderLessons(courseTitle) {
+  const list = document.getElementById('lessonList');
+  list.innerHTML = `
+    <div style="padding:10px 20px;font-size:11px;color:var(--text2);font-weight:700;letter-spacing:0.05em;text-transform:uppercase">${courseTitle}</div>
+  ` + LESSONS.map((l, i) => `
+    <div class="lesson-item ${l.current ? 'active' : ''}" onclick="selectLesson(this,${i})">
+      <div class="lesson-num ${l.done ? 'done' : l.current ? 'current' : ''}">${l.done ? '✓' : i+1}</div>
+      <div class="lesson-info">
+        <div class="lesson-title">${l.title}</div>
+        <div class="lesson-dur">▶ ${l.dur}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectLesson(el, idx) {
+  document.querySelectorAll('.lesson-item').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function markDone() {
+  showToast('✅ Lesson marked as complete! +25 XP earned');
+  const xpEl = document.querySelector('.xp-pill');
+  if(xpEl) { xpEl.textContent = '⚡ 365 XP'; xpEl.style.animation = 'pulse 0.5s'; }
+}
+
+function toggleNotes() {
+  notesVisible = !notesVisible;
+  document.getElementById('notesArea').style.display = notesVisible ? 'block' : 'none';
+}
+
+function saveNotes() { showToast('📝 Notes saved!'); }
+function downloadResources() { showToast('⬇️ Resources downloading...'); }
+
+function selectVoiceLang(btn, lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const status = document.getElementById('voiceStatus');
+  const statusText = document.getElementById('voiceStatusText');
+  const msgs = { en:'🔊 Playing in English', hi:'🔊 हिंदी में चल रहा है', es:'🔊 Reproduciendo en Español', zh:'🔊 正在播放中文', ar:'🔊 يشغل بالعربية', pt:'🔊 Reproduzindo em Português' };
+  status.style.display = 'block';
+  statusText.textContent = 'Preparing audio translation...';
+  setTimeout(() => { statusText.textContent = msgs[lang] || msgs.en; }, 1500);
+  showToast(`🌍 Voice translator set to ${btn.textContent}`);
+}
+
+// =================== ROADMAP ===================
+function renderRoadmap(role) {
+  const data = role === 'analyst' ? ROADMAP_ANALYST : ROADMAP_ENGINEER;
+  const container = document.getElementById('roadmapContent');
+  container.innerHTML = data.map((p, i) => `
+    <div class="roadmap-phase fade-in" style="animation-delay:${i*0.08}s">
+      <div class="phase-line">
+        <div class="phase-node" style="background:${p.color}22;border-color:${p.color};color:${p.color}">${p.icon}</div>
+        ${i < data.length-1 ? `<div class="phase-connector" style="color:${p.color}"></div>` : ''}
+      </div>
+      <div class="phase-content">
+        <div class="phase-label" style="color:${p.color}">${p.phase}</div>
+        <div class="phase-title">${p.title}</div>
+        <div class="duration-badge" style="margin-bottom:12px">📅 ${p.weeks}</div>
+        <div class="skills-list">
+          ${p.skills.map(s => `<span class="skill-tag" onclick="showToast('🔍 Finding courses for: ${s}')">${s}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function switchRoleTab(btn, role) {
+  document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  currentRole = role;
+  renderRoadmap(role);
+}
+
+// =================== AI TUTOR ===================
+function renderSuggestedQuestions() {
+  const container = document.getElementById('suggestedQs');
+  if(!container) return;
+  container.innerHTML = SUGGESTED_QUESTIONS.map(q => `
+    <div class="quick-card" style="padding:12px 16px;margin-bottom:8px;border-radius:10px" onclick="askSuggested('${q.replace(/'/g,"\\'")}')">
+      <div style="font-size:13px">${q}</div>
+    </div>
+  `).join('');
+}
+
+function askSuggested(q) {
+  document.getElementById('aiInput').value = q;
+  sendAI();
+}
+
+function sendAI() {
+  const input = document.getElementById('aiInput');
+  const msgs = document.getElementById('aiMessages');
+  const q = input.value.trim();
+  if(!q) return;
+
+  msgs.innerHTML += `<div class="msg user">${q}</div>`;
+  input.value = '';
+  msgs.scrollTop = msgs.scrollHeight;
+
+  // Typing indicator
+  const typingId = 'typing_' + Date.now();
+  msgs.innerHTML += `<div class="msg bot" id="${typingId}"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  msgs.scrollTop = msgs.scrollHeight;
+
+  setTimeout(() => {
+    const typingEl = document.getElementById(typingId);
+    const ans = getAIAnswer(q.toLowerCase());
+    if(typingEl) typingEl.outerHTML = `<div class="msg bot">${ans}</div>`;
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 1200 + Math.random()*600);
+}
+
+function getAIAnswer(q) {
+  for(const [key, ans] of Object.entries(AI_RESPONSES)) {
+    if(key !== 'default' && q.includes(key)) return ans;
+  }
+  return AI_RESPONSES.default;
+}
+
+// =================== TRANSLATION ===================
+function translatePage(lang) {
+  currentLang = lang;
+  const overlay = document.getElementById('transOverlay');
+  const langNames = { en:'English', hi:'हिंदी (Hindi)', es:'Español', zh:'中文 (Chinese)', ar:'العربية (Arabic)', pt:'Português' };
+  document.getElementById('transLangName').textContent = `Switching to ${langNames[lang]}...`;
+  overlay.classList.add('show');
+
+  setTimeout(() => {
+    applyTranslations(lang);
+    overlay.classList.remove('show');
+    showToast(`🌍 Page translated to ${langNames[lang]}`);
+    // Set RTL for Arabic
+    document.body.style.direction = lang === 'ar' ? 'rtl' : 'ltr';
+  }, 1400);
+}
+
+function applyTranslations(lang) {
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(t[key]) {
+      let text = t[key];
+      if(key === 'welcome_h') text = text.replace('{name}', currentUser);
+      el.textContent = text;
+    }
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.getAttribute('data-i18n-ph');
+    const phMap = {
+      email_ph: { en:'you@example.com', hi:'aap@example.com', es:'tu@ejemplo.com', zh:'你@example.com', ar:'أنت@example.com', pt:'voce@exemplo.com' },
+      pass_ph: { en:'Create a password', hi:'पासवर्ड बनाएं', es:'Crea una contraseña', zh:'创建密码', ar:'إنشاء كلمة مرور', pt:'Crie uma senha' }
+    };
+    if(phMap[key] && phMap[key][lang]) el.placeholder = phMap[key][lang];
+  });
+}
+
+// =================== MODAL ===================
+const MODAL_CONTENT = {
+  sql_playground: { title:'🗄️ SQL Playground', body:'<p>Practice SQL with real datasets. 50+ challenges across all difficulty levels.</p><p><strong>Coming soon:</strong> Full in-browser SQL editor with PostgreSQL backend. For now, practice on <a href="https://sqliteonline.com" target="_blank" style="color:var(--accent)">SQLite Online</a> or <a href="https://www.db-fiddle.com" target="_blank" style="color:var(--accent)">DB Fiddle</a>.</p>' },
+  python_nb: { title:'🐍 Python Notebooks', body:'<p>Interactive Python environment for data analysis practice.</p><p><strong>Coming soon:</strong> Full Jupyter notebook in browser. For now, use <a href="https://colab.research.google.com" target="_blank" style="color:var(--accent)">Google Colab</a> (free) to practice Python & Pandas.</p>' },
+  etl_builder: { title:'🔄 ETL Pipeline Builder', body:'<p>Visual drag-and-drop ETL design tool. Connect data sources, transforms, and destinations.</p><p><strong>Coming soon:</strong> Full visual pipeline builder. Meanwhile, explore <a href="https://airflow.apache.org" target="_blank" style="color:var(--accent)">Apache Airflow</a> documentation.</p>' },
+  interview_prep: { title:'🎯 Interview Prep', body:'<p>200+ real interview questions from top tech companies for Data Analyst & Data Engineer roles.</p><p>Categories: SQL problems, Python coding, system design, behavioral questions, case studies.</p><p><strong>Coming soon in next update!</strong> Practice daily SQL challenges in the Practice tab.</p>' },
+  quizzes: { title:'✅ Quizzes & Assessments', body:'<p>Test your knowledge after each module. Adaptive quizzes that adjust to your skill level.</p><p>Earn XP, unlock badges, and track progress with detailed analytics.</p><p><strong>Available after completing your first module!</strong></p>' },
+  capstone: { title:'🏆 Capstone Projects', body:'<p>Real-world projects to build your portfolio:</p><p>• Sales Analytics Dashboard (Beginner)<br>• ETL Pipeline for E-commerce (Advanced)<br>• Real-time Streaming Analytics (Professional)</p><p>Get peer reviews + AI feedback on your work!</p>' },
+  cheatsheets: { title:'📄 Cheat Sheets', body:'<p>Quick reference cards for everything data:</p><p>• SQL Window Functions<br>• Pandas Operations<br>• PySpark Commands<br>• Kafka CLI Commands<br>• Airflow DAG Patterns<br>• BigQuery SQL<br>• dbt Commands</p><p><strong>PDF downloads coming soon!</strong></p>' },
+};
+
+function openModal(key) {
+  const content = MODAL_CONTENT[key];
+  if(!content) return;
+  document.getElementById('modalTitle').textContent = content.title;
+  document.getElementById('modalBody').innerHTML = content.body;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+// =================== TOAST ===================
+function showToast(msg) {
+  const existing = document.getElementById('toastEl');
+  if(existing) existing.remove();
+  const t = document.createElement('div');
+  t.id = 'toastEl';
+  t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 20px;font-size:14px;color:var(--text);z-index:9999;animation:fadeUp 0.3s ease;box-shadow:0 8px 30px rgba(0,0,0,0.3)';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 3000);
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  // Show login
+  document.getElementById('loginScreen').classList.add('active');
+});
+</script>
+</body>
+</html>
